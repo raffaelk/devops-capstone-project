@@ -57,6 +57,7 @@ def create_accounts():
         jsonify(message), status.HTTP_201_CREATED, {"Location": location_url}
     )
 
+
 ######################################################################
 # LIST ALL ACCOUNTS
 ######################################################################
@@ -66,11 +67,11 @@ def list_accounts():
     Lists all Account
     This endpoint will list all available accounts.
     """
-    app.logger.info(f"Request to list Accounts")
+    app.logger.info("Request to list Accounts")
 
     accounts = Account.all()
     account_list = [account.serialize() for account in accounts]
-    
+
     message = jsonify(account_list)
 
     return message, status.HTTP_200_OK
@@ -92,7 +93,7 @@ def read_account(id):
         abort(status.HTTP_404_NOT_FOUND, f"Account with id [{id}] could not be found.")
 
     message = account.serialize()
-    
+
     return message, status.HTTP_200_OK
 
 
@@ -114,7 +115,7 @@ def update_account(id):
 
     account.deserialize(request.get_json())
     account.update()
-    
+
     return account.serialize(), status.HTTP_200_OK
 
 
@@ -132,7 +133,7 @@ def delete_account(id):
     account = Account.find(id)
     if account:
         account.delete()
-    
+
     return "", status.HTTP_204_NO_CONTENT
 
 
